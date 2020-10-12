@@ -69,9 +69,9 @@ public class SPPermissionIconView: UIView {
             SPPermissionsDraw.drawReminders(frame: rect, resizing: .aspectFit, color: color)
         case .speech:
             SPPermissionsDraw.drawSpeech(frame: rect, resizing: .aspectFit, color: color)
-        case .locationWhenInUse:
+        case .locationWhenInUse, .preciseLocationWhenInUse:
             SPPermissionsDraw.drawLocations(frame: rect, resizing: .aspectFit, color: color)
-        case .locationAlwaysAndWhenInUse:
+        case .locationAlwaysAndWhenInUse, .preciseLocationAlwaysAndWhenInUse:
             SPPermissionsDraw.drawLocations(frame: rect, resizing: .aspectFit, color: color)
         case .motion:
             SPPermissionsDraw.drawMotion(frame: rect, resizing: .aspectFit, color: color)

@@ -42,6 +42,8 @@ enum SPPermissionsText {
             return "Speech"
         case .locationAlwaysAndWhenInUse:
             return "Location Always"
+        case .preciseLocationAlwaysAndWhenInUse:
+            return "Precise Location Always"
         case .motion:
             return "Motion"
         case .mediaLibrary:
@@ -53,6 +55,8 @@ enum SPPermissionsText {
             return "Notification"
         case .locationWhenInUse:
             return "Location When Use"
+        case .preciseLocationWhenInUse:
+            return "Precise Location When Use"
         case .tracking:
             return "Tracking"
         }
@@ -77,6 +81,8 @@ enum SPPermissionsText {
             return "Allow to check your voice"
         case .locationAlwaysAndWhenInUse:
             return "Allow to access your location"
+        case .preciseLocationAlwaysAndWhenInUse:
+            return "Allow to access your precise location"
         case .motion:
             return "Allow to report motion and environment-related data"
         case .mediaLibrary:
@@ -88,6 +94,8 @@ enum SPPermissionsText {
             return "Get important information without opening app."
         case .locationWhenInUse:
             return "Allow to access your location"
+        case .preciseLocationWhenInUse:
+            return "Allow to access your precise location"
         case .tracking:
             return "Allow to access app-related data"
         }

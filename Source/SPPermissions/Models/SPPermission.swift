@@ -40,10 +40,12 @@ import UIKit
     case motion = 11
     case mediaLibrary = 12
     case bluetooth = 13
+    case preciseLocationAlwaysAndWhenInUse = 15
     #endif
     case notification = 2
     case locationWhenInUse = 9
     case tracking = 14
+    case preciseLocationWhenInUse = 16
     
     /**
      Check permission is allowed.
@@ -94,7 +96,7 @@ import UIKit
             return "NSRemindersUsageDescription"
         case .speech:
             return "NSSpeechRecognitionUsageDescription"
-        case .locationAlwaysAndWhenInUse:
+        case .locationAlwaysAndWhenInUse ,.preciseLocationAlwaysAndWhenInUse:
             return "NSLocationAlwaysAndWhenInUseUsageDescription"
         case .motion:
             return "NSMotionUsageDescription"
@@ -105,7 +107,7 @@ import UIKit
             #endif
         case .notification:
             return nil
-        case .locationWhenInUse:
+        case .locationWhenInUse, .preciseLocationWhenInUse:
             return "NSLocationWhenInUseUsageDescription"
         case .tracking:
             return "NSUserTrackingUsageDescription"
@@ -169,6 +171,13 @@ extension SPPermission {
             #else
             fatalError(error(permission))
             #endif
+        case .preciseLocationAlwaysAndWhenInUse:
+            #if SPPERMISSION_LOCATION
+            return SPLocationPermission(type: SPLocationPermission.SPLocationType.AlwaysAndWhenInUse, precision: .Full)
+            #else
+            fatalError(error(permission))
+            #endif
+            
         case .motion:
             #if SPPERMISSION_MOTION
             return SPMotionPermission()
@@ -197,6 +206,12 @@ extension SPPermission {
         case .locationWhenInUse:
             #if SPPERMISSION_LOCATION
             return SPLocationPermission(type: SPLocationPermission.SPLocationType.WhenInUse)
+            #else
+            fatalError(error(permission))
+            #endif
+        case .preciseLocationWhenInUse:
+            #if SPPERMISSION_LOCATION
+            return SPLocationPermission(type: SPLocationPermission.SPLocationType.WhenInUse, precision: .Full)
             #else
             fatalError(error(permission))
             #endif

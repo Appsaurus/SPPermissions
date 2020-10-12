@@ -27,19 +27,31 @@ import MapKit
 struct SPLocationPermission: SPPermissionProtocol {
     
     var type: SPLocationType
-    
+    var precision: SPLocationPrecision
+
+
     enum SPLocationType {
         case WhenInUse
         #if os(iOS)
         case AlwaysAndWhenInUse
         #endif
     }
-    
-    init(type: SPLocationType) {
-        self.type = type
+
+    enum SPLocationPrecision {
+        case Full
+        case Reduced
     }
     
+    init(type: SPLocationType, precision: SPLocationPrecision = .Reduced) {
+        self.type = type
+        self.precision = precision
+    }
+
+    
     var isAuthorized: Bool {
+        guard hasPrecisionAuthoriztion else {
+            return false            
+        }
         let status = CLLocationManager.authorizationStatus()
         if status == .authorizedAlways {
             return true
@@ -54,7 +66,16 @@ struct SPLocationPermission: SPPermissionProtocol {
     
     var isDenied: Bool {
         let authorizationStatus = CLLocationManager.authorizationStatus()
-        return authorizationStatus == .denied || authorizationStatus == .restricted
+        return authorizationStatus == .denied || authorizationStatus == .restricted || !hasPrecisionAuthoriztion
+    }
+
+    var hasPrecisionAuthoriztion: Bool {
+        #if os(iOS)
+        if #available(iOS 14.0, *), precision == .Full, CLLocationManager().accuracyAuthorization != .fullAccuracy {
+            return false
+        }
+        #endif
+        return true
     }
     
     func request(completion: @escaping ()->()?) {
